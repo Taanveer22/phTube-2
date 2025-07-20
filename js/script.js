@@ -10,7 +10,21 @@ const loadCategories = () => {
 
 // step 02
 const displayCategories = (data) => {
-  console.log(data);
+  //   console.log(data);
+  //   step 03
+  const categoryBtnContainer = document.getElementById(
+    "category-btn-container"
+  );
+  console.log(categoryBtnContainer);
+
+  //   step 04
+  data.forEach((item) => {
+    console.log(item);
+    const button = document.createElement("button");
+    button.classList = "btn btn-error";
+    button.innerText = item.category;
+    categoryBtnContainer.append(button);
+  });
 };
 
 // final function invocation
