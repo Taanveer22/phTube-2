@@ -42,13 +42,21 @@ const displayVideos = (data) => {
   data.forEach((item) => {
     console.log(item);
     const div = document.createElement("div");
-    div.classList = "card";
+    div.classList = "card card-compact";
     div.innerHTML = `
-        <figure class = "h-52">
+        <figure class = "h-52 relative" >
             <img
                 src = "${item.thumbnail}"
                 class = "h-full w-full object-cover"
             />
+            ${
+              item.others.posted_date?.length === 0
+                ? ""
+                : `<span class="absolute right-2 bottom-2 bg-black text-white rouded-sm p-2">
+                  ${getTimeString(item.others.posted_date)}
+                </span>`
+            }
+           
         </figure>
         <section class = "px-0 py-2 flex gap-5">
             <img
@@ -61,7 +69,7 @@ const displayVideos = (data) => {
                     <p>${item.authors[0].profile_name}</p>
                     ${
                       item.authors[0].verified === true
-                        ? ' <img class = "w-5 h-5" src="https://img.icons8.com/?size=100&id=2AuMnRFVB9b1&format=png&color=000000"> '
+                        ? ` <img class = "w-5 h-5" src="https://img.icons8.com/?size=100&id=2AuMnRFVB9b1&format=png&color=000000"> `
                         : ""
                     }
                 </div>
@@ -72,6 +80,15 @@ const displayVideos = (data) => {
     videoCardContainer.append(div);
   });
 };
+
+// utility function declaretion
+function getTimeString(paramSeconds) {
+  const hour = parseInt(paramSeconds / 3600);
+  let remainingSeconds = paramSeconds % 3600;
+  const minute = parseInt(remainingSeconds / 60);
+  remainingSeconds = remainingSeconds % 60;
+  return `${hour} hour ${minute} minute ${remainingSeconds} second ago`;
+}
 
 // final function invocation
 loadCategories();
