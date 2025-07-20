@@ -59,7 +59,11 @@ const displayVideos = (data) => {
                 <h2 class = "font-bold">${item.title}</h2>
                 <div class = "flex gap-2 items-center">
                     <p>${item.authors[0].profile_name}</p>
-                    <img class = "w-5 h-5" src="https://img.icons8.com/?size=100&id=2AuMnRFVB9b1&format=png&color=000000">
+                    ${
+                      item.authors[0].verified === true
+                        ? ' <img class = "w-5 h-5" src="https://img.icons8.com/?size=100&id=2AuMnRFVB9b1&format=png&color=000000"> '
+                        : ""
+                    }
                 </div>
                 <p>${item.others.views}</p>
             </div>
