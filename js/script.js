@@ -16,6 +16,15 @@ const loadVideos = () => {
     .catch((error) => console.log(error));
 };
 
+// step 06 : load videos by button clicked
+const loadClickedBtnVideos = (id) => {
+  // alert(id);
+  fetch(`https://openapi.programming-hero.com/api/phero-tube/category/${id}`)
+    .then((res) => res.json())
+    .then((data) => displayVideos(data.category))
+    .catch((error) => console.log(console.error()));
+};
+
 // step 02 : display categories btn to ui
 const displayCategories = (data) => {
   //   console.log(data);
@@ -27,11 +36,21 @@ const displayCategories = (data) => {
 
   //   sub-step 02
   data.forEach((item) => {
-    // console.log(item);
-    const button = document.createElement("button");
-    button.classList = "btn btn-error";
-    button.innerText = item.category;
-    categoryBtnContainer.append(button);
+    console.log(item);
+    // const button = document.createElement("button");
+    // button.classList = "btn btn-error";
+    // button.innerText = item.category;
+    // categoryBtnContainer.append(button);
+
+    // sub-step 03 (clone of substep 02)
+    const buttonDiv = document.createElement("div");
+    buttonDiv.innerHTML = `
+          <button class="btn btn-error"
+                  onclick = loadClickedBtnVideos('${item.category_id}')>
+                        ${item.category}
+          </button>
+    `;
+    categoryBtnContainer.append(buttonDiv);
   });
 };
 
@@ -39,8 +58,9 @@ const displayCategories = (data) => {
 const displayVideos = (data) => {
   //   console.log(data);
   const videoCardContainer = document.getElementById("video-card-container");
+  videoCardContainer.innerHTML = "";
   data.forEach((item) => {
-    console.log(item);
+    // console.log(item);
     const div = document.createElement("div");
     div.classList = "card card-compact";
     div.innerHTML = `
@@ -52,7 +72,7 @@ const displayVideos = (data) => {
             ${
               item.others.posted_date?.length === 0
                 ? ""
-                : `<span class="absolute right-2 bottom-2 bg-black text-white rouded-sm p-2">
+                : `<span class="absolute right-2 bottom-2 text-xs bg-black text-white rouded-sm p-2">
                   ${getTimeString(item.others.posted_date)}
                 </span>`
             }
@@ -81,7 +101,7 @@ const displayVideos = (data) => {
   });
 };
 
-// utility function declaretion
+//step 05: utility function declaretion
 function getTimeString(paramSeconds) {
   const hour = parseInt(paramSeconds / 3600);
   let remainingSeconds = paramSeconds % 3600;
