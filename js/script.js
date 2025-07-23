@@ -36,7 +36,7 @@ const displayCategories = (data) => {
 
   //   sub-step 02
   data.forEach((item) => {
-    console.log(item);
+    // console.log(item);
     // const button = document.createElement("button");
     // button.classList = "btn btn-error";
     // button.innerText = item.category;
@@ -57,8 +57,24 @@ const displayCategories = (data) => {
 // step 04 : display videos card to the ui
 const displayVideos = (data) => {
   //   console.log(data);
+  // console.log(data.length);
+
   const videoCardContainer = document.getElementById("video-card-container");
   videoCardContainer.innerHTML = "";
+  if (data.length === 0) {
+    videoCardContainer.classList.remove("grid");
+    videoCardContainer.innerHTML = `
+        <div class = "flex justify-center items-center gap-5 w-full">
+            <img src = "./assets/Icon.png">
+        </div>
+        <h1 class = "text-center text-xl font-bold mt-10"> 
+            opps !! sorry <br> here is no content 
+        </h1>
+                                    `;
+    return;
+  } else {
+    videoCardContainer.classList.add("grid");
+  }
   data.forEach((item) => {
     // console.log(item);
     const div = document.createElement("div");
