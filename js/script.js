@@ -31,6 +31,16 @@ const loadClickedBtnVideos = (id) => {
     .catch((error) => console.log(console.error()));
 };
 
+// loadDetails function
+const loadDetails = (modalVideoId) => {
+  console.log(modalVideoId);
+  fetch(
+    `https://openapi.programming-hero.com/api/phero-tube/video/${modalVideoId}`
+  )
+    .then((res) => res.json())
+    .then((data) => displayDetails(data.video))
+    .catch((error) => console.log(error));
+};
 // step 02 : display categories btn to ui
 const displayCategories = (data) => {
   //   console.log(data);
@@ -100,7 +110,7 @@ const displayVideos = (data) => {
             }
            
         </figure>
-        <section class = "px-0 py-2 flex gap-5">
+        <section class = "px-0 py-2 flex justify-evenly items-center">
             <img
                 src = "${item.authors[0].profile_picture}"
                 class = "h-12 w-12 rounded-full object-cover"
@@ -117,10 +127,31 @@ const displayVideos = (data) => {
                 </div>
                 <p>${item.others.views}</p>
             </div>
+            <button class = "btn btn-accent"
+                    onclick = loadDetails('${item.video_id}')>
+                            Details
+            </button>
         </section>
     `;
     videoCardContainer.append(div);
   });
+};
+
+// displayDetails function
+const displayDetails = (modalCard) => {
+  console.log(modalCard);
+  const { thumbnail, title, description } = modalCard;
+
+  const modalContent = document.getElementById("modal-content");
+  modalContent.innerHTML = `
+        <img src = "${thumbnail}"/>
+        <h2 class = "text-xl font-bold" >${title}</h2>
+        <p class = "text-base font-normal text-justify">${description}</p>
+  
+  `;
+
+  // modal show system
+  document.getElementById("detailsModal").showModal();
 };
 
 //step 05: utility function declaretion

@@ -51,6 +51,22 @@
       ></section>
     </main>
 
+    <!--pop up modal ------------------------------------->
+    <footer class="mt-6 text-center">
+      <!-- Open the modal using ID.showModal() method -->
+      <button class="btn" onclick="detailsModal.showModal()">open modal</button>
+      <dialog id="detailsModal" class="modal modal-bottom sm:modal-middle">
+        <div class="modal-box">
+          <div id="modal-content" class="space-y-2"></div>
+          <div class="modal-action">
+            <form method="dialog">
+              <button class="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+    </footer>
+
     <!-- custom js -->
     <script src="./js/script.js"></script>
   </body>
