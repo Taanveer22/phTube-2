@@ -9,8 +9,10 @@ const loadCategories = () => {
 };
 
 // step 03 : load videos card from api
-const loadVideos = () => {
-  fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
+const loadVideos = (searchText = "") => {
+  fetch(
+    `https://openapi.programming-hero.com/api/phero-tube/videos?title=${searchText}`
+  )
     .then((response) => response.json())
     .then((data) => displayVideos(data.videos))
     .catch((error) => console.log(error));
@@ -139,7 +141,7 @@ const displayVideos = (data) => {
 
 // displayDetails function
 const displayDetails = (modalCard) => {
-  console.log(modalCard);
+  // console.log(modalCard);
   const { thumbnail, title, description } = modalCard;
 
   const modalContent = document.getElementById("modal-content");
@@ -171,6 +173,12 @@ function removeActiveClass() {
     btn.classList.remove("active");
   }
 }
+// search functionality implementation
+const searchInput = document.getElementById("search-input");
+searchInput.addEventListener("keyup", (event) => {
+  loadVideos(event.target.value);
+});
+
 // final function invocation
 loadCategories();
 loadVideos();
