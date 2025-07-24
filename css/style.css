@@ -4,3 +4,9 @@
 .inter-font {
   font-family: "Inter", sans-serif;
 }
+
+/* active btn class */
+.active{
+  background-color: red;
+  color : white;
+}
